@@ -2,25 +2,6 @@
     "name": "react-template",
     "version": "0.1.0",
     "private": true,
-    "dependencies": {
-        "@types/react": "^16.9.0",
-        "@types/react-dom": "^16.9.0",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
-        "react-scripts": "^4.0.0-next.98"
-    },
-    "devDependencies": {
-        "@testing-library/jest-dom": "^5.11.4",
-        "@testing-library/react": "^11.1.0",
-        "@testing-library/user-event": "^12.1.8",
-        "@types/jest": "^26.0.14",
-        "@types/node": "^14.11.8",
-        "@typescript-eslint/parser": "^4.4.1",
-        "eslint": "^7.11.0",
-        "eslint-config-prettier": "^6.12.0",
-        "eslint-plugin-react": "^7.21.4",
-        "typescript": "^4.0.3"
-    },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
@@ -30,19 +11,59 @@
         "prettier:check": "pretty-quick --check",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    },
     "eslintConfig": {
         "extends": "react-app"
     },
+    "dependencies": {
+        "@types/react": "^16.9.0",
+        "@types/react-dom": "^16.9.0",
+        "eslint-plugin-react": "^7.21.4",
+        "pretty-quick": "^3.1.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-scripts": "^3.4.3"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.8",
+        "@types/jest": "^26.0.14",
+        "@types/node": "^14.11.8",
+        "@typescript-eslint/parser": "^4.4.1",
+        "eslint-config-prettier": "^6.12.0",
+        "typescript": "^4.0.3"
+    },
     "browserslist": {
         "production": [
-            ">0.2%",
+            ">= 1% in GB",
+            "last 1 major version",
             "not dead",
-            "not op_mini all"
+            "Chrome >= 60",
+            "Firefox >= 60",
+            "Edge >= 15.15063",
+            "Explorer 11",
+            "iOS >= 10",
+            "Safari >= 10",
+            "Android >= 6",
+            "not ExplorerMobile <= 11"
         ],
         "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
+            ">= 1% in GB",
+            "last 1 major version",
+            "not dead",
+            "Chrome >= 60",
+            "Firefox >= 60",
+            "Edge >= 15.15063",
+            "Explorer 11",
+            "iOS >= 10",
+            "Safari >= 10",
+            "Android >= 6",
+            "not ExplorerMobile <= 11"
         ]
     }
 }
