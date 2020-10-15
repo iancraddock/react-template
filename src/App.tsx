@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { CSSTransition } from 'react-transition-group';
 
 // function App(): JSX.Element {
 //     return (
@@ -24,6 +25,9 @@ import './App.css';
 // }
 
 const App = (): JSX.Element => {
+    const [inProp, setInProp] = useState(false);
+    const toggle = (): void => setInProp(!inProp);
+
     return (
         <div className="App">
             <header className="App-header">
@@ -40,6 +44,12 @@ const App = (): JSX.Element => {
                     Learn React
                 </a>
             </header>
+            <CSSTransition in={inProp} timeout={2000} classNames="my-node">
+                <div>{"I'll receive my-node-* classes"}</div>
+            </CSSTransition>
+            <button type="button" onClick={(): void => toggle()}>
+                Click to Enter
+            </button>
         </div>
     );
 };
