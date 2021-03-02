@@ -1,57 +1,92 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { CSSTransition } from 'react-transition-group';
+import React, { useEffect, useState } from 'react';
+import { withRouter, Switch, Route, Link } from 'react-router-dom';
+import Home from './Home';
+import Test2 from './Test2';
+import Test from './Test';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import routesMock from './routes/routes';
 
-// function App(): JSX.Element {
-//     return (
-//         <div className="App">
-//             <header className="App-header">
-//                 <img src={logo} className="App-logo" alt="logo" />
-//                 <p>
-//                     Edit <code>src/App.tsx</code> and save to reload.
-//                 </p>
-//                 <a
-//                     className="App-link"
-//                     href="https://reactjs.org"
-//                     target="_blank"
-//                     rel="noopener noreferrer"
-//                 >
-//                     Learn React
-//                 </a>
-//             </header>
-//         </div>
-//     );
-// }
+export default withRouter(({ location }) => {
+    const [currentPath, setCurrentPath] = useState(location.pathname);
+    const [direction, setDirection] = useState<string>('rtl');
 
-const App = (): JSX.Element => {
-    const [inProp, setInProp] = useState(false);
-    const toggle = (): void => setInProp(!inProp);
+    const childFactoryCreator = (props: {
+        classNames: string;
+        timeout: number;
+    }): any => (
+        child: React.FunctionComponentElement<{
+            classNames: string;
+            timeout: number;
+        }>
+    ): any => React.cloneElement(child, props);
+
+    const handleExit = (): void => {
+        const currentID =
+            routesMock.routes.find((path) => path.path === location.pathname)
+                ?.id ?? null;
+
+        const targetID =
+            routesMock.routes.find(
+                (path) => path.path === window.location.pathname
+            )?.id ?? null;
+
+        if (currentID && targetID) {
+            if (currentID < targetID) {
+                setDirection('rtl');
+            }
+
+            if (currentID > targetID) {
+                setDirection('ltr');
+            }
+        }
+    };
+
+    useEffect(() => {
+        const { pathname } = location;
+
+        setCurrentPath(pathname);
+    }, [location.pathname, direction]);
 
     return (
         <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
+            <div>
+                <Link to="/">Home</Link>
+                {' - '}
+                <Link to="/test">Test</Link>
+                {' - '}
+                <Link to="/test2">Test2</Link>
+            </div>
+            <div>
+                <div>Current path: {currentPath}</div>
+                <div>Current direction: {direction}</div>
+            </div>
+            <TransitionGroup
+                childFactory={childFactoryCreator({
+                    classNames: direction === 'ltr' ? 'slide-ltr' : 'slide-rtl',
+                    timeout: 2500,
+                })}
+            >
+                <CSSTransition
+                    key={location.key}
+                    classNames={direction === 'ltr' ? 'slide-ltr' : 'slide-rtl'}
+                    timeout={2500}
+                    onExit={handleExit}
                 >
-                    Learn React
-                </a>
-            </header>
-            <CSSTransition in={inProp} timeout={2000} classNames="my-node">
-                <div>{"I'll receive my-node-* classes"}</div>
-            </CSSTransition>
-            <button type="button" onClick={(): void => toggle()}>
-                Click to Enter
-            </button>
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            position: 'absolute',
+                            width: '100%',
+                        }}
+                    >
+                        <Switch location={location}>
+                            <Route path={'/'} exact component={Home} />
+                            <Route path="/test2" component={Test2} />
+                            <Route path="/test" component={Test} />
+                        </Switch>
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>
         </div>
     );
-};
-
-export default App;
+});

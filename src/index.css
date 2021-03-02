@@ -26,3 +26,72 @@ code {
     opacity: 0;
     transition: opacity 2200ms;
 }
+
+.wrapper {
+    background: white;
+    border: 1px #333;
+    height: 60px;
+    font-size: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 30px;
+    margin: 10px 30px;
+}
+
+.wrapper:focus {
+    outline: none;
+}
+
+@keyframes slideOut-rtl {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slideIn-rtl {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut-ltr {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes slideIn-ltr {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.slide-rtl-exit-active {
+    animation: slideOut-rtl 2500ms both ease;
+}
+
+.slide-rtl-enter-active {
+    animation: slideIn-rtl 2500ms both ease;
+}
+
+.slide-ltr-exit-active {
+    animation: slideOut-ltr 2500ms both ease;
+}
+
+.slide-ltr-enter-active {
+    animation: slideIn-ltr 2500ms both ease;
+}
