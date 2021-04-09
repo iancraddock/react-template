@@ -1,3 +1,3 @@
-import Routes from './routes';
+import Paths from './Paths';
 
-export default Routes;
+export default Paths;

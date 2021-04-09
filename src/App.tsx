@@ -4,7 +4,8 @@ import Home from './Home';
 import Test2 from './Test2';
 import Test from './Test';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import RoutePaths from './routes';
+import Paths from './routes';
+import { pageRoutes } from './routes/Paths';
 
 export default withRouter(({ location }) => {
     const [currentPath, setCurrentPath] = useState(location.pathname);
@@ -18,20 +19,19 @@ export default withRouter(({ location }) => {
     ): any => React.cloneElement(child, props);
 
     const handleExit = (): void => {
-        const currentID =
-            RoutePaths.routes.find((path) => path.path === location.pathname)?.id ?? null;
+        const currentID = pageRoutes.findIndex((path) => path.path === location.pathname);
+        const targetID = pageRoutes.findIndex((path) => path.path === window.location.pathname);
 
-        const targetID =
-            RoutePaths.routes.find((path) => path.path === window.location.pathname)?.id ?? null;
+        if (!currentID && !targetID) {
+            return;
+        }
 
-        if (currentID && targetID) {
-            if (currentID < targetID) {
-                setDirection('rtl');
-            }
+        if (currentID < targetID) {
+            setDirection('rtl');
+        }
 
-            if (currentID > targetID) {
-                setDirection('ltr');
-            }
+        if (currentID > targetID) {
+            setDirection('ltr');
         }
     };
 
@@ -44,11 +44,11 @@ export default withRouter(({ location }) => {
     return (
         <div className="App">
             <div>
-                <Link to="/">Home</Link>
+                <Link to={Paths.Home}>Home</Link>
                 {' - '}
-                <Link to="/test">Test</Link>
+                <Link to={Paths.Test}>Test</Link>
                 {' - '}
-                <Link to="/test2">Test2</Link>
+                <Link to={Paths.Test2}>Test2</Link>
             </div>
             <div>
                 <div>Current path: {currentPath}</div>
@@ -74,9 +74,9 @@ export default withRouter(({ location }) => {
                         }}
                     >
                         <Switch location={location}>
-                            <Route path={'/'} exact component={Home} />
-                            <Route path="/test2" component={Test2} />
-                            <Route path="/test" component={Test} />
+                            <Route path={Paths.Home} exact component={Home} />
+                            <Route path={Paths.Test} component={Test} />
+                            <Route path={Paths.Test2} component={Test2} />
                         </Switch>
                     </div>
                 </CSSTransition>
