@@ -4,16 +4,13 @@ import Home from './Home';
 import Test2 from './Test2';
 import Test from './Test';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import routesMock from './routes/routes';
+import RoutePaths from './routes';
 
 export default withRouter(({ location }) => {
     const [currentPath, setCurrentPath] = useState(location.pathname);
     const [direction, setDirection] = useState<string>('rtl');
 
-    const childFactoryCreator = (props: {
-        classNames: string;
-        timeout: number;
-    }): any => (
+    const childFactoryCreator = (props: { classNames: string; timeout: number }): any => (
         child: React.FunctionComponentElement<{
             classNames: string;
             timeout: number;
@@ -22,13 +19,10 @@ export default withRouter(({ location }) => {
 
     const handleExit = (): void => {
         const currentID =
-            routesMock.routes.find((path) => path.path === location.pathname)
-                ?.id ?? null;
+            RoutePaths.routes.find((path) => path.path === location.pathname)?.id ?? null;
 
         const targetID =
-            routesMock.routes.find(
-                (path) => path.path === window.location.pathname
-            )?.id ?? null;
+            RoutePaths.routes.find((path) => path.path === window.location.pathname)?.id ?? null;
 
         if (currentID && targetID) {
             if (currentID < targetID) {
