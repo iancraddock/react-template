@@ -20,5 +20,9 @@
 .env.production.local
 .env
 
+# Husky
+/.husky/.gitignore
+/.husky/_
+
 npm-debug.log*
 *.log
