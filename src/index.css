@@ -1,15 +1,21 @@
+html {
+    height: 100%;
+    overflow: auto;
+}
+body {
+    height: 100%;
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-        'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .my-node-enter {
@@ -94,4 +100,37 @@ code {
 
 .slide-ltr-enter-active {
     animation: slideIn-ltr 2500ms both ease;
+}
+
+.c-input {
+    padding: 1.17rem 1.6rem;
+    background-color: #fff;
+    border: 2px solid #d6d6d6;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.list-group {
+    background-color: #fff;
+    list-style-type: none;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.list-group-item {
+    padding: 1.6rem;
+    border-bottom: 1px solid #e4e4e4;
+    cursor: pointer;
+}
+
+.list-group-item:last-of-type {
+    border-bottom: none;
+}
+
+.list-group-item.highlighted {
+    background-color: #333;
+}
+
+* {
+    box-sizing: border-box;
 }
