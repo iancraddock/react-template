@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
                 onSelect={(item: React.SetStateAction<string>): void => setItem(item)}
             /> */}
 
-            {`ITEM STATE: ${item}`}
+            {`ITEM STATE: ${JSON.stringify(item)}`}
 
             <Typeahead
                 options={[

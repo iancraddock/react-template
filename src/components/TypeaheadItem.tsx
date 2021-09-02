@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TypeaheadItem = (props: Record<string, any>): JSX.Element => {
-    const { customText, text, onSelectItem, isHighlighted } = props;
+    const { customText, isHighlighted, onSelectItem, text } = props;
     return (
         <li
             className={`list-group-item ${isHighlighted ? 'active highlighted' : ''}`}
