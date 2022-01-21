@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter, Switch, Route, Link } from 'react-router-dom';
-import Home from './Home';
+import { useLocation, Route, Link, Routes } from 'react-router-dom';
 import Test2 from './Test2';
 import Test from './Test';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Paths from './routes';
 import { pageRoutes } from './routes/Paths';
 
-export default withRouter(({ location }) => {
+const App = (): JSX.Element => {
+    const location = useLocation();
     const [currentPath, setCurrentPath] = useState(location.pathname);
     const [direction, setDirection] = useState<string>('rtl');
 
-    const childFactoryCreator = (props: { classNames: string; timeout: number }): any => (
-        child: React.FunctionComponentElement<{
-            classNames: string;
-            timeout: number;
-        }>
-    ): any => React.cloneElement(child, props);
+    const childFactoryCreator =
+        (props: { classNames: string; timeout: number }): any =>
+        (
+            child: React.FunctionComponentElement<{
+                classNames: string;
+                timeout: number;
+            }>
+        ): any =>
+            React.cloneElement(child, props);
 
     const handleExit = (): void => {
         const currentID = pageRoutes.findIndex((path) => path.path === location.pathname);
@@ -73,14 +76,16 @@ export default withRouter(({ location }) => {
                             width: '100%',
                         }}
                     >
-                        <Switch location={location}>
-                            <Route path={Paths.Home} exact component={Home} />
-                            <Route path={Paths.Test} component={Test} />
-                            <Route path={Paths.Test2} component={Test2} />
-                        </Switch>
+                        <Routes location={location}>
+                            {/* <Route path={Paths.Home} element={<Home />} /> */}
+                            <Route path={Paths.Test} element={<Test />} />
+                            <Route path={Paths.Test2} element={<Test2 />} />
+                        </Routes>
                     </div>
                 </CSSTransition>
             </TransitionGroup>
         </div>
     );
-});
+};
+
+export default App;
